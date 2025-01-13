@@ -4,17 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
-    "dev": "esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap && node dist/index.js",
+    "dev": "npm run build:prisma && esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap --external:@prisma/client && node dist/index.js",
+    "build:prisma": "cd ../../packages/db && npx prisma generate",
     "lint": "eslint . --max-warnings 0",
-    "lint:fix": "eslint --fix ."
-
+    "lint:fix": "eslint --fix .",
+    "test": "ts-node tests/ws.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.12.1",
     "@repo/db": "*",
     "@types/ws": "^8.5.10",
     "chess.js": "^1.0.0-beta.8",
@@ -24,7 +23,6 @@
   "devDependencies": {
     "@types/node": "^20.12.7",
     "nodemon": "^3.1.0",
-    "prisma": "^5.12.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
